@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For my Luna....</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Dancing+Script:wght@500&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #0b0c10; 
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('luna-bg.webp'); 
+            background-size: contain; 
+            background-repeat: no-repeat;
+            background-position: center; 
+            opacity: 0;
+            animation: slowReveal 5s ease-in-out forwards;
+        }
+
+        .text-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            margin-bottom: 8%; 
+            padding: 0 30px;
+        }
+
+        .main-wish {
+            color: #fdf5e6;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-style: italic;
+            opacity: 0;
+            text-shadow: 0px 4px 15px rgba(0, 0, 0, 1);
+            animation: textReveal 3s ease-in-out 4.5s forwards;
+        }
+
+        .sub-message {
+            color: #fdf5e6;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            margin-top: 8px;
+            opacity: 0;
+            text-shadow: 0px 2px 10px rgba(0, 0, 0, 1);
+            animation: textReveal 3s ease-in-out 6s forwards;
+        }
+
+        @keyframes slowReveal {
+            0% { opacity: 0; filter: blur(15px); }
+            100% { opacity: 1; filter: blur(0px); }
+        }
+
+        @keyframes textReveal {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+
+    <div class="canvas-container"></div>
+    
+    <div class="text-container">
+        <div class="main-wish">Happy Birthday Luna.....</div>
+        <div class="sub-message">With love then, now and forever...</div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('bgMusic');
+
+        // This function starts the music and the reveal sync
+        const playExperience = () => {
+            audio.play().catch(e => console.log("Auto-play blocked, waiting for touch."));
+        };
+
+        // Try to play as soon as everything is loaded
+        window.addEventListener('load', playExperience);
+
+        // Fallback: If the browser blocks it, play on the very first touch
+        window.addEventListener('touchstart', () => {
+            if (audio.paused) audio.play();
+        }, { once: true });
+        
+        window.addEventListener('click', () => {
+            if (audio.paused) audio.play();
+        }, { once: true });
+    </script>
+</body>
+</html>
